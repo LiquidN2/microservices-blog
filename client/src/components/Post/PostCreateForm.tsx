@@ -1,7 +1,7 @@
 import { FC, FormEventHandler, useState } from 'react';
 import axios from 'axios';
 
-const CreatePost: FC = () => {
+const PostCreateForm: FC = () => {
   const [title, setTitle] = useState('');
 
   const onSubmit: FormEventHandler = e => {
@@ -42,4 +42,4 @@ const CreatePost: FC = () => {
   );
 };
 
-export default CreatePost;
+export default PostCreateForm;

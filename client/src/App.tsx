@@ -1,12 +1,12 @@
 import { FC } from 'react';
 
-import CreatePost from './components/Post/CreatePost';
+import PostCreateForm from './components/Post/PostCreateForm';
 import PostList from './components/Post/PostList';
 
 const App: FC = () => (
   <div className="container mt-3">
     <h1>Microservices Blog</h1>
-    <CreatePost />
+    <PostCreateForm />
     <hr />
     <PostList />
   </div>
