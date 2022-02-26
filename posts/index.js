@@ -1,10 +1,12 @@
 const express = require('express');
 const crypto = require('crypto');
 const cors = require('cors');
-
-const app = express();
+const axios = require('axios');
 
 const PORT = process.env.PORT || 4000;
+const EVENT_BUS_URL = 'http://localhost:4005/events';
+
+const app = express();
 
 // GLOBAL MIDDLEWARE
 app.use(express.urlencoded({ extended: true }));
@@ -19,14 +21,28 @@ app.get('/posts', (req, res) => {
   res.send(posts);
 });
 
-app.post('/posts', (req, res) => {
+app.post('/posts', async (req, res) => {
+  // Assemble new post from request data
   const { title } = req.body;
-
   const postId = crypto.randomBytes(4).toString('hex');
+  const newPost = { id: postId, title };
 
-  posts[postId] = { id: postId, title };
+  // Storing new post
+  posts[postId] = newPost;
 
-  res.send(posts[postId]);
+  // Notify event bus of new post
+  await axios.post(EVENT_BUS_URL, {
+    type: 'PostCreated',
+    data: newPost,
+  });
+
+  res.status(201).send(posts[postId]);
+});
+
+app.post('/events', (req, res) => {
+  console.log('Event Received', req.body.type);
+
+  res.send({});
 });
 
 app.listen(PORT, () => {
