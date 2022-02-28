@@ -2,17 +2,20 @@ import { FC } from 'react';
 
 import CommentCreateForm from '../Comment/CommentCreateForm';
 import CommentList from '../Comment/CommentList';
-
-interface PostItemProps {
+import type { Comment } from '../Comment/CommentItem';
+export interface Post {
   id: string;
   title: string;
+  comments: Comment[];
 }
 
-const PostItem: FC<PostItemProps> = ({ id, title }) => {
+interface PostItemProps extends Post {}
+
+const PostItem: FC<PostItemProps> = ({ id, title, comments }) => {
   return (
     <div className="card p-2 mb-3" style={{ width: '30%' }}>
       {title}
-      <CommentList postId={id} />
+      <CommentList comments={comments} />
       <CommentCreateForm postId={id} />
     </div>
   );

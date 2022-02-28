@@ -1,18 +1,13 @@
 import { FC, useState, useEffect } from 'react';
 import axios from 'axios';
 
-import PostItem from './PostItem';
-
-interface Post {
-  id: string;
-  title: string;
-}
+import PostItem, { Post } from './PostItem';
 
 const PostList: FC = () => {
   const [posts, setPosts] = useState<Record<string, Post>>({});
 
   const fetchPosts = async () => {
-    const res = await axios.get('http://localhost:4000/posts');
+    const res = await axios.get('http://localhost:4002/posts');
     setPosts(res.data);
   };
 
@@ -23,7 +18,12 @@ const PostList: FC = () => {
   console.log(posts);
 
   const renderedPosts = Object.values(posts).map((post: Post) => (
-    <PostItem key={post.id} id={post.id} title={post.title} />
+    <PostItem
+      key={post.id}
+      id={post.id}
+      title={post.title}
+      comments={post.comments}
+    />
   ));
 
   return (
