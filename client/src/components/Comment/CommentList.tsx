@@ -8,7 +8,12 @@ interface CommentListProps {
 
 const CommentList: FC<CommentListProps> = ({ comments }) => {
   const renderedComments = comments.map(comment => (
-    <CommentItem key={comment.id} id={comment.id} content={comment.content} />
+    <CommentItem
+      key={comment.id}
+      id={comment.id}
+      content={comment.content}
+      status={comment.status}
+    />
   ));
 
   return <ul>{renderedComments}</ul>;
