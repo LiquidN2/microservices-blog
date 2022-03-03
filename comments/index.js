@@ -5,6 +5,8 @@ const axios = require('axios');
 
 const PORT = process.env.PORT || 4001;
 const EVENT_BUS_URL = 'http://localhost:4005/events';
+const EVENT_COMMENT_CREATED = 'CommentCreated';
+const STATUS_PENDING = 'pending';
 
 const app = express();
 
@@ -30,7 +32,7 @@ app.post('/posts/:id/comments', async (req, res) => {
   const { id: postId } = req.params;
   const { content } = req.body;
   const commentId = crypto.randomBytes(4).toString('hex');
-  const newComment = { id: commentId, content };
+  const newComment = { id: commentId, content, status: STATUS_PENDING };
 
   // Storing new comment
   commentsByPostId[postId] = commentsByPostId[postId] || [];
@@ -38,7 +40,7 @@ app.post('/posts/:id/comments', async (req, res) => {
 
   // Notify event bus of new comment
   await axios.post(EVENT_BUS_URL, {
-    type: 'CommentCreated',
+    type: EVENT_COMMENT_CREATED,
     data: { ...newComment, postId },
   });
 
@@ -52,4 +54,6 @@ app.post('/events', (req, res) => {
   res.send({});
 });
 
-app.listen(PORT, () => console.log(`Comments service is listening on ${PORT}`));
+app.listen(PORT, () =>
+  console.log(`✅✅✅ COMMENTS SERVICE is listening on ${PORT} ✅✅✅`)
+);
