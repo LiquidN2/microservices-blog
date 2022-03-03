@@ -4,6 +4,7 @@ const cors = require('cors');
 const PORT = process.env.PORT || 4002;
 const EVENT_POST_CREATED = 'PostCreated';
 const EVENT_COMMENT_CREATED = 'CommentCreated';
+const EVENT_COMMENT_UPDATED = 'CommentUpdated';
 
 const app = express();
 
@@ -29,6 +30,15 @@ app.post('/events', (req, res) => {
     const { postId, ...newComment } = data;
     const post = posts[postId];
     post.comments.push(newComment);
+  }
+
+  if (type === EVENT_COMMENT_UPDATED) {
+    const { postId, ...updatedComment } = data;
+    const post = posts[postId];
+    const comment = post.comments.find(
+      comment => comment.id === updatedComment.id
+    );
+    comment.status = updatedComment.status;
   }
 });
 

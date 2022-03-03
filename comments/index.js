@@ -6,7 +6,9 @@ const axios = require('axios');
 const PORT = process.env.PORT || 4001;
 const EVENT_BUS_URL = 'http://localhost:4005/events';
 const EVENT_COMMENT_CREATED = 'CommentCreated';
-const STATUS_PENDING = 'pending';
+const EVENT_COMMENT_MODERATED = 'CommentModerated';
+const EVENT_COMMENT_UPDATED = 'CommentUpdated';
+const COMMENT_STATUS_PENDING = 'pending';
 
 const app = express();
 
@@ -32,7 +34,7 @@ app.post('/posts/:id/comments', async (req, res) => {
   const { id: postId } = req.params;
   const { content } = req.body;
   const commentId = crypto.randomBytes(4).toString('hex');
-  const newComment = { id: commentId, content, status: STATUS_PENDING };
+  const newComment = { id: commentId, content, status: COMMENT_STATUS_PENDING };
 
   // Storing new comment
   commentsByPostId[postId] = commentsByPostId[postId] || [];
@@ -48,8 +50,25 @@ app.post('/posts/:id/comments', async (req, res) => {
   res.status(201).send(newComment);
 });
 
-app.post('/events', (req, res) => {
+app.post('/events', async (req, res) => {
   console.log('Event Received', req.body.type);
+
+  const { type, data } = req.body;
+
+  if (type === EVENT_COMMENT_MODERATED) {
+    const { postId, ...moderatedComment } = data;
+    if (!postId) return;
+    const comments = commentsByPostId[postId];
+    const comment = comments.find(
+      comment => comment.id === moderatedComment.id
+    );
+    comment.status = moderatedComment.status;
+
+    await axios.post(EVENT_BUS_URL, {
+      type: EVENT_COMMENT_UPDATED,
+      data: { ...comment, postId },
+    });
+  }
 
   res.send({});
 });
