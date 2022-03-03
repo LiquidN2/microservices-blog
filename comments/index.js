@@ -63,6 +63,7 @@ app.post('/events', async (req, res) => {
       comment => comment.id === moderatedComment.id
     );
     comment.status = moderatedComment.status;
+    comment.content = moderatedComment.content;
 
     await axios.post(EVENT_BUS_URL, {
       type: EVENT_COMMENT_UPDATED,
