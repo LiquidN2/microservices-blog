@@ -9,9 +9,14 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+const events = [];
+
 // ROUTE HANDLING
 app.post('/events', (req, res) => {
   const event = req.body;
+
+  // STORE EVENT
+  events.push(event);
 
   // POSTS
   axios
@@ -33,7 +38,11 @@ app.post('/events', (req, res) => {
     .post('http://localhost:4003/events', event)
     .catch(err => console.error(err));
 
-  res.send('Ok');
+  res.send('OK');
+});
+
+app.get('/events', (req, res) => {
+  res.send(events);
 });
 
 app.listen(PORT, () =>
