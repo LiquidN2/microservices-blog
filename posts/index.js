@@ -16,6 +16,10 @@ app.use(cors());
 // DATA
 const posts = {};
 
+app.get('/', (req, res) => {
+  res.send('Welcome to POSTS SERVICE')
+})
+
 // ROUTE HANDLING
 app.get('/posts', (req, res) => {
   res.send(posts);
