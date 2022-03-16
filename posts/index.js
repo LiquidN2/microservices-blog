@@ -17,8 +17,8 @@ app.use(cors());
 const posts = {};
 
 app.get('/', (req, res) => {
-  res.send('Welcome to POSTS SERVICE')
-})
+  res.send('Welcome to POSTS SERVICE');
+});
 
 // ROUTE HANDLING
 app.get('/posts', (req, res) => {
@@ -50,5 +50,6 @@ app.post('/events', (req, res) => {
 });
 
 app.listen(PORT, () => {
+  console.log('v3');
   console.log(`✅✅✅ POSTS SERVICE is listening on port ${PORT} ✅✅✅`);
 });
