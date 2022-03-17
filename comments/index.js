@@ -4,7 +4,8 @@ const cors = require('cors');
 const axios = require('axios');
 
 const PORT = process.env.PORT || 4001;
-const EVENT_BUS_URL = 'http://localhost:4005/events';
+// const EVENT_BUS_URL = 'http://localhost:4005/events';
+const EVENT_BUS_URL = 'http://event-bus-srv:4005/events';
 const EVENT_COMMENT_CREATED = 'CommentCreated';
 const EVENT_COMMENT_MODERATED = 'CommentModerated';
 const EVENT_COMMENT_UPDATED = 'CommentUpdated';

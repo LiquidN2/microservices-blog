@@ -4,7 +4,8 @@ const events = require('events');
 const axios = require('axios');
 
 const PORT = process.env.PORT || 4002;
-const EVENT_BUS_URL = 'http://localhost:4005/events';
+// const EVENT_BUS_URL = 'http://localhost:4005/events';
+const EVENT_BUS_URL = 'http://event-bus-srv:4005/events';
 const EVENT_POST_CREATED = 'PostCreated';
 const EVENT_COMMENT_CREATED = 'CommentCreated';
 const EVENT_COMMENT_UPDATED = 'CommentUpdated';
