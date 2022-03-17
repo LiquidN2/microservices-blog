@@ -4,7 +4,8 @@ const cors = require('cors');
 const axios = require('axios');
 
 const PORT = process.env.PORT || 4000;
-const EVENT_BUS_URL = 'http://localhost:4005/events';
+// const EVENT_BUS_URL = 'http://localhost:4005/events';
+const EVENT_BUS_URL = 'http://event-bus-srv:4005/events';
 
 const app = express();
 
@@ -50,6 +51,5 @@ app.post('/events', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log('v3');
   console.log(`✅✅✅ POSTS SERVICE is listening on port ${PORT} ✅✅✅`);
 });
