@@ -1,6 +1,8 @@
 # Specify a base image
 FROM node:current-alpine
 
+ENV CI=true
+
 # Specify the working directory for the project inside the container
 WORKDIR /usr/app
 

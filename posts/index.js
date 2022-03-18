@@ -26,7 +26,7 @@ app.get('/posts', (req, res) => {
   res.send(posts);
 });
 
-app.post('/posts', async (req, res) => {
+app.post('/posts/create', async (req, res) => {
   // Assemble new post from request data
   const { title } = req.body;
   const postId = crypto.randomBytes(4).toString('hex');

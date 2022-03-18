@@ -16,7 +16,7 @@ const CommentCreateForm: FC<CommentCreateFormProps> = ({ postId }) => {
     if (!postId || !submittedContent) return;
 
     axios
-      .post(`http://localhost:4001/posts/${postId}/comments`, {
+      .post(`http://posts.com/posts/${postId}/comments`, {
         content: submittedContent,
       })
       .then(res => console.log(res.data))

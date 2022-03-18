@@ -7,7 +7,8 @@ const PostList: FC = () => {
   const [posts, setPosts] = useState<Record<string, Post>>({});
 
   const fetchPosts = async () => {
-    const res = await axios.get('http://localhost:4002/posts');
+    console.log('fetching posts...');
+    const res = await axios.get('http://posts.com/posts');
     setPosts(res.data);
   };
 

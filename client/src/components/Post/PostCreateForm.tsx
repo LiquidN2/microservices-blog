@@ -11,7 +11,7 @@ const PostCreateForm: FC = () => {
     if (!submittedTitle) return;
 
     axios
-      .post('http://localhost:4000/posts', {
+      .post('http://posts.com/posts/create', {
         title: submittedTitle,
       })
       .then(res => console.log(res.data))
