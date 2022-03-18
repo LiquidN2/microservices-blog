@@ -25,7 +25,7 @@ const PostCreateForm: FC = () => {
       <form onSubmit={onSubmit}>
         <div className="mb-3">
           <label htmlFor="title" className="form-label">
-            Title
+            Post title:
           </label>
           <input
             type="text"
